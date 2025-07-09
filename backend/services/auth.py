@@ -5,16 +5,15 @@ from passlib.context import CryptContext
 import jwt
 from jwt.exceptions import InvalidTokenError
 from datetime import datetime, timedelta
-from models.user import User
-from models.token import TokenData
-from database import get_session
+from api.models.user import User
+from api.models.token import TokenData
+from config.database import get_session
 
 SECRET_KEY = "your-secret-key"
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
-
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/user/login")
 
 def verify_password(plain_password: str, hashed_password: str) -> bool:
