@@ -3,7 +3,7 @@ from fastapi.security import OAuth2PasswordRequestForm
 from sqlmodel import Session
 from database import get_session
 from services.auth import login_user, create_access_token
-from dependencies.auth import getCurrentUser
+from services.auth import get_current_user
 
 router = APIRouter(
     prefix="/user",
@@ -22,5 +22,5 @@ async def login(
     return {"access_token": access_token, "token_type": "bearer"}
 
 @router.get('/logged')
-async def getLoggedUser(user = Depends(getCurrentUser)):
+async def getLoggedUser(user = Depends(get_current_user)):
     return user
